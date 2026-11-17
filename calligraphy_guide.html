@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calligraphy guide sheet</title>
+<style>
+  :root {
+    --bg: #ecebe7; --panel: #fbfaf7; --ink: #222; --muted: #6b6b6b;
+    --line: #d6d4cf; --accent: #2f5d8a; --warn: #a03a2a;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    font: 14px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: var(--ink); background: var(--bg);
+    display: grid; grid-template-columns: 330px 1fr; height: 100vh;
+  }
+  aside {
+    background: var(--panel); border-right: 1px solid var(--line);
+    padding: 18px 20px 24px; overflow-y: auto;
+  }
+  h1 { font-size: 17px; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 12px; margin-bottom: 8px; }
+  h2 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--muted); margin: 18px 0 8px; padding-top: 12px;
+    border-top: 1px solid var(--line);
+  }
+  .row { display: grid; grid-template-columns: 1fr 92px 64px; align-items: center; gap: 6px; margin: 5px 0; }
+  .row label { white-space: nowrap; }
+  .unit { color: var(--muted); font-size: 12px; }
+  input[type=number], select, input[type=text] {
+    width: 100%; padding: 4px 6px; border: 1px solid #c8c6c0; border-radius: 4px;
+    font: inherit; background: #fff;
+  }
+  input[type=color] { width: 100%; height: 28px; padding: 0 2px; border: 1px solid #c8c6c0; border-radius: 4px; background: #fff; }
+  .check { display: flex; align-items: center; gap: 8px; margin: 6px 0; cursor: pointer; }
+  .wide { grid-template-columns: 1fr 156px; }
+  fieldset { border: 0; padding: 0; margin: 0; }
+  fieldset:disabled { opacity: .45; }
+  .stats { color: var(--muted); font-size: 12px; margin-top: 10px; }
+  .actions { display: flex; gap: 8px; margin-top: 12px; }
+  button {
+    font: inherit; padding: 7px 14px; border-radius: 5px; cursor: pointer;
+    border: 1px solid #b9b7b1; background: #fff;
+  }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+  button:hover { filter: brightness(.95); }
+  .warn { color: var(--warn); font-size: 12px; margin-top: 10px; }
+  main { display: flex; align-items: center; justify-content: center; padding: 24px; overflow: hidden; }
+  #preview { max-width: 100%; max-height: 100%; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.18); }
+  @media (max-width: 760px) {
+    body { grid-template-columns: 1fr; grid-template-rows: auto 70vh; height: auto; }
+    aside { border-right: 0; border-bottom: 1px solid var(--line); }
+  }
+</style>
+</head>
+<body>
+<aside>
+  <h1>Calligraphy guide sheet</h1>
+  <div class="sub">A ruled page to put under your paper on a light box</div>
+
+  <h2>Page</h2>
+  <div class="row wide"><label for="page">Size</label>
+    <select id="page"><option>A4 portrait</option><option>A4 landscape</option></select></div>
+  <div class="row"><label for="margin_top">Top margin</label><input id="margin_top" type="number" min="0" max="100" step="1"><span class="unit">mm</span></div>
+  <div class="row"><label for="margin_bottom">Bottom margin</label><input id="margin_bottom" type="number" min="0" max="100" step="1"><span class="unit">mm</span></div>
+  <div class="row"><label for="margin_left">Left margin</label><input id="margin_left" type="number" min="0" max="100" step="1"><span class="unit">mm</span></div>
+  <div class="row"><label for="margin_right">Right margin</label><input id="margin_right" type="number" min="0" max="100" step="1"><span class="unit">mm</span></div>
+
+  <h2>Horizontal lines</h2>
+  <div class="row"><label for="gap1">Gap 1</label><input id="gap1" type="number" min="0.5" max="50" step="0.5"><span class="unit">mm</span></div>
+  <div class="row"><label for="gap2">Gap 2</label><input id="gap2" type="number" min="0.5" max="50" step="0.5"><span class="unit">mm</span></div>
+  <div class="row"><label for="line_width">Thickness</label><input id="line_width" type="number" min="0.05" max="2" step="0.05"><span class="unit">mm</span></div>
+  <div class="row"><label for="line_color">Colour</label><input id="line_color" type="color"><span></span></div>
+
+  <h2>Slanted lines</h2>
+  <label class="check"><input id="slant_on" type="checkbox"> Show slanted lines</label>
+  <fieldset id="slantSet">
+    <div class="row"><label for="slant_angle">Angle</label><input id="slant_angle" type="number" min="5" max="175" step="1"><span class="unit">° (90 = vertical)</span></div>
+    <div class="row"><label for="slant_spacing">Spacing</label><input id="slant_spacing" type="number" min="1" max="100" step="1"><span class="unit">mm</span></div>
+    <div class="row"><label for="slant_width">Thickness</label><input id="slant_width" type="number" min="0.05" max="2" step="0.05"><span class="unit">mm</span></div>
+    <div class="row"><label for="slant_color">Colour</label><input id="slant_color" type="color"><span></span></div>
+  </fieldset>
+
+  <h2>Save</h2>
+  <label class="check"><input id="label_on" type="checkbox"> Settings note in bottom margin</label>
+  <label class="check"><input id="open_after" type="checkbox"> Open PDF after saving</label>
+  <div class="row wide"><label for="filename">File name</label><input id="filename" type="text"></div>
+  <div class="stats" id="stats"></div>
+  <div class="actions">
+    <button class="primary" id="saveBtn">Save PDF</button>
+    <button id="resetBtn">Reset</button>
+  </div>
+  <div class="warn">Print at 100 % / “Actual size”, not “Fit to page”.</div>
+</aside>
+
+<main><svg id="preview" xmlns="http://www.w3.org/2000/svg"></svg></main>
+
+<script>
+"use strict";
+const MM = 72 / 25.4;                                  // PDF points per mm
+const PAGE_SIZES = { "A4 portrait": [210, 297], "A4 landscape": [297, 210] };
+const STORE = "calligraphy_guide_settings_v1";
+
+const DEFAULTS = {
+  page: "A4 portrait",
+  gap1: 2, gap2: 4,
+  margin_top: 15, margin_bottom: 15, margin_left: 15, margin_right: 15,
+  line_width: 0.2, line_color: "#000000",
+  slant_on: false, slant_angle: 55, slant_spacing: 10,
+  slant_width: 0.15, slant_color: "#808080",
+  label_on: true, open_after: true, filename: ""
+};
+
+// ---------- settings <-> form ----------
+const $ = id => document.getElementById(id);
+
+function readForm() {
+  const s = {};
+  for (const k of Object.keys(DEFAULTS)) {
+    const el = $(k), d = DEFAULTS[k];
+    if (typeof d === "boolean") s[k] = el.checked;
+    else if (typeof d === "number") { const v = parseFloat(el.value); s[k] = isFinite(v) ? v : d; }
+    else s[k] = el.value;
+  }
+  return s;
+}
+function writeForm(s) {
+  for (const k of Object.keys(DEFAULTS)) {
+    const el = $(k);
+    if (typeof DEFAULTS[k] === "boolean") el.checked = !!s[k]; else el.value = s[k];
+  }
+}
+function loadSettings() {
+  try { return Object.assign({}, DEFAULTS, JSON.parse(localStorage.getItem(STORE)) || {}); }
+  catch (e) { return Object.assign({}, DEFAULTS); }
+}
+function saveSettings(s) { try { localStorage.setItem(STORE, JSON.stringify(s)); } catch (e) {} }
+
+// ---------- geometry (mm, origin top-left, y down) ----------
+function clip(xa, ya, xb, yb, x0, y0, x1, y1) {           // Liang–Barsky
+  const dx = xb - xa, dy = yb - ya; let t0 = 0, t1 = 1;
+  for (const [p, q] of [[-dx, xa - x0], [dx, x1 - xa], [-dy, ya - y0], [dy, y1 - ya]]) {
+    if (Math.abs(p) < 1e-12) { if (q < 0) return null; }
+    else { const t = q / p; if (p < 0) t0 = Math.max(t0, t); else t1 = Math.min(t1, t); }
+  }
+  if (t0 >= t1) return null;
+  return [xa + t0 * dx, ya + t0 * dy, xa + t1 * dx, ya + t1 * dy];
+}
+
+function geometry(s) {
+  const [w, h] = PAGE_SIZES[s.page] || PAGE_SIZES["A4 portrait"];
+  const gaps = [Math.max(0.5, s.gap1), Math.max(0.5, s.gap2)];
+  const x0 = s.margin_left, x1 = w - s.margin_right;
+  const ys = [];
+  for (let y = s.margin_top, i = 0; y <= h - s.margin_bottom + 1e-9 && ys.length < 2000; i++) {
+    ys.push(y); y += gaps[i % 2];
+  }
+  const slants = [];
+  if (s.slant_on && ys.length >= 2 && x1 > x0) {
+    const top = ys[0], bot = ys[ys.length - 1];
+    const ang = Math.min(Math.max(s.slant_angle, 5), 175);
+    const dx = (bot - top) / Math.tan(ang * Math.PI / 180);
+    const sp = Math.max(1, s.slant_spacing);
+    const lo = x0 - Math.max(dx, 0), hi = x1 - Math.min(dx, 0);
+    for (let x = x0 - Math.ceil((x0 - lo) / sp) * sp; x <= hi + 1e-9; x += sp) {
+      const seg = clip(x, bot, x + dx, top, x0, top, x1, bot);
+      if (seg) slants.push(seg);
+    }
+  }
+  return { w, h, x0, x1, ys, slants };
+}
+
+const fmt = v => String(+v.toFixed(2));
+function labelText(s) {
+  let t = `Guide ${fmt(s.gap1)} / ${fmt(s.gap2)} mm  |  line ${fmt(s.line_width)} mm`;
+  if (s.slant_on) t += `  |  slant ${fmt(s.slant_angle)}° every ${fmt(s.slant_spacing)} mm`;
+  return t;
+}
+const labelY = s => Math.max(3, s.margin_bottom / 2 - 1);   // mm from page bottom
+
+// ---------- PDF writer (vector, no libraries) ----------
+function rgb(hex) {
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex || ""); if (!m) return "0 0 0";
+  const n = parseInt(m[1], 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255].map(c => (c / 255).toFixed(3)).join(" ");
+}
+function pdfString(t) {
+  return t.replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)")
+          .replace(/°/g, "\\260").replace(/[^\x20-\x7e\\]/g, "?");
+}
+function buildPdf(s) {
+  const g = geometry(s), H = g.h, P = v => (v * MM).toFixed(3);
+  const ops = ["0 J 0 j"];
+  if (g.slants.length) {
+    ops.push(`${rgb(s.slant_color)} RG ${P(Math.max(0.02, s.slant_width))} w`);
+    for (const [xa, ya, xb, yb] of g.slants) ops.push(`${P(xa)} ${P(H - ya)} m ${P(xb)} ${P(H - yb)} l`);
+    ops.push("S");
+  }
+  ops.push(`${rgb(s.line_color)} RG ${P(Math.max(0.02, s.line_width))} w`);
+  for (const y of g.ys) ops.push(`${P(g.x0)} ${P(H - y)} m ${P(g.x1)} ${P(H - y)} l`);
+  ops.push("S");
+  if (s.label_on) ops.push(`BT /F1 7 Tf 0.55 g ${P(g.x0)} ${P(labelY(s))} Td (${pdfString(labelText(s))}) Tj ET`);
+
+  const content = ops.join("\n");
+  const objs = [
+    "<< /Type /Catalog /Pages 2 0 R >>",
+    "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+    `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${P(g.w)} ${P(g.h)}] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>`,
+    `<< /Length ${content.length} >>\nstream\n${content}\nendstream`,
+    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>"
+  ];
+  let out = "%PDF-1.4\n";
+  const offs = [];
+  objs.forEach((body, i) => { offs.push(out.length); out += `${i + 1} 0 obj\n${body}\nendobj\n`; });
+  const xref = out.length;
+  out += `xref\n0 ${objs.length + 1}\n0000000000 65535 f \n`;
+  for (const o of offs) out += String(o).padStart(10, "0") + " 00000 n \n";
+  out += `trailer\n<< /Size ${objs.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF\n`;
+  return new Blob([out], { type: "application/pdf" });   // pure ASCII, so length == bytes
+}
+
+function defaultName(s) {
+  return `calligraphy_guide_${fmt(s.gap1)}-${fmt(s.gap2)}mm` + (s.slant_on ? `_${fmt(s.slant_angle)}deg` : "");
+}
+
+// ---------- preview ----------
+const svg = $("preview"), NS = "http://www.w3.org/2000/svg";
+function el(name, attrs) {
+  const e = document.createElementNS(NS, name);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  return e;
+}
+function render() {
+  const s = readForm(), g = geometry(s);
+  $("slantSet").disabled = !s.slant_on;
+  $("filename").placeholder = defaultName(s);
+  svg.setAttribute("viewBox", `0 0 ${g.w} ${g.h}`);
+  // size the page to fit the preview area
+  const box = svg.parentElement.getBoundingClientRect();
+  const k = Math.max(0.5, Math.min((box.width - 48) / g.w, (box.height - 48) / g.h)); // px per mm
+  svg.setAttribute("width", g.w * k); svg.setAttribute("height", g.h * k);
+  const px = mm => Math.max(1, mm * k);  // keep thin lines visible on screen
+
+  svg.replaceChildren();
+  for (const [xa, ya, xb, yb] of g.slants)
+    svg.appendChild(el("line", { x1: xa, y1: ya, x2: xb, y2: yb, stroke: s.slant_color,
+      "stroke-width": px(s.slant_width), "vector-effect": "non-scaling-stroke" }));
+  for (const y of g.ys)
+    svg.appendChild(el("line", { x1: g.x0, y1: y, x2: g.x1, y2: y, stroke: s.line_color,
+      "stroke-width": px(s.line_width), "vector-effect": "non-scaling-stroke" }));
+  if (s.label_on) {
+    const t = el("text", { x: g.x0, y: g.h - labelY(s), "font-size": 2.47, fill: "#8c8c8c",
+      "font-family": "Helvetica, Arial, sans-serif" });
+    t.textContent = labelText(s);
+    svg.appendChild(t);
+  }
+  $("stats").textContent = `${g.ys.length} horizontal lines` + (s.slant_on ? `, ${g.slants.length} slanted` : "");
+  saveSettings(s);
+}
+
+// ---------- actions ----------
+$("saveBtn").addEventListener("click", () => {
+  const s = readForm();
+  let name = (s.filename.trim() || defaultName(s)).replace(/[\\/:*?"<>|]/g, "_");
+  if (!/\.pdf$/i.test(name)) name += ".pdf";
+  const url = URL.createObjectURL(buildPdf(s));
+  const a = document.createElement("a");
+  a.href = url; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  if (s.open_after) window.open(url, "_blank");
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+});
+$("resetBtn").addEventListener("click", () => { writeForm(DEFAULTS); render(); });
+
+writeForm(loadSettings());
+document.querySelectorAll("aside input, aside select").forEach(e => {
+  e.addEventListener("input", render); e.addEventListener("change", render);
+});
+window.addEventListener("resize", render);
+render();
+</script>
+</body>
+</html>
